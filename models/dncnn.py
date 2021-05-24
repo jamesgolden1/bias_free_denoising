@@ -53,12 +53,14 @@ class DnCNN(nn.Module):
 	def forward(self, x):
 		y = x
 		out = self.first_layer(x);
-		out = F.relu(out);
+# 		out = F.relu(out);
+		out = F.celu(out,alpha=0.01);
 
 		for i in range(self.depth-2):
 			out = self.hidden_layer_list[i](out);
 			out = self.bn_layer_list[i](out);
-			out = F.relu(out)
+# 			out = F.relu(out);
+			out = F.celu(out,alpha=0.01)
 
 		out = self.last_layer(out);
 		
